@@ -1,19 +1,26 @@
 <script setup>
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 const itemRefs = ref([]);
 const itemHeight = ref(0);
 
 const props = defineProps({
-  totalNumberOfPages: {default: 3, type: Number},
-  currentPage: { default: 1, type: Number},
   list: { type: Array, default: ()=>[]},
-  visibleItems: {default: 4, type: Number}
+  visibleItems: {default: 4, type: Number},
+  index: {default: 0, type: Number}
 });
 onMounted(()=>{
   if (itemRefs.value){
     itemHeight.value = itemRefs.value[0].clientHeight
   }
 });
+
+watch(
+    ()=> props.index,
+    () => {
+      itemRefs.value[props.index].scrollIntoView({behavior: "smooth"})
+    }
+)
+
 const computedHeight = computed(()=>{
   return itemHeight.value * props.visibleItems
 })
@@ -32,16 +39,6 @@ const computedHeight = computed(()=>{
           :tabindex="index + 1"
       >
        <slot name="item" v-bind="user"> </slot>
-      </li>
-    </ul>
-  </div>
-  <div>
-    <ul class="pagination">
-      <li
-          v-for="n in totalNumberOfPages"
-          :key="n"
-      >
-        <button>{{ n }}</button>
       </li>
     </ul>
   </div>

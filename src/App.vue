@@ -1,6 +1,7 @@
 <script setup>
 import {computed, onMounted, ref} from "vue";
 import UserComponent from "@/components/UserComponent.vue";
+const index = ref(0);
 
 const list = ref([
   {id: 1, name: 'John Doe 1', age: 50, country: 'Spain'},
@@ -16,15 +17,11 @@ const list = ref([
   {id: 11, name: 'Jane Doe 11', age: 30, country: 'Senegal'},
   {id: 12, name: 'Smith John 12', age: 54, country: 'Morocco'},
 ]);
-const visibleItems = ref(6);
-const totalPages = computed(()=>{
-  return list.value.length / visibleItems.value
-})
 
 </script>
 <template>
   <div class="viewport-center">
-    <user-component :list="list" :visible-items="visibleItems" :total-number-of-pages="totalPages">
+    <user-component :list="list" :index="index">
       <template #item="user">
         <img class="avatar" :src="'/placeholder-avatar.jpg'" alt=""/>
         <div>
@@ -33,6 +30,12 @@ const totalPages = computed(()=>{
         </div>
       </template>
     </user-component>
+    <div class="mb-4 flex flex-wrap items-center justify-center">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+        Index:
+        <input v-model.number="index" class="shadow appearance-none border rounded w-6/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="0">
+      </label>
+    </div>
   </div>
 </template>
 
