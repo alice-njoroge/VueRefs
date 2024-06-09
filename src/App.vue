@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import UserComponent from "@/components/UserComponent.vue";
 
 const list = ref([
@@ -16,13 +16,15 @@ const list = ref([
   {id: 11, name: 'Jane Doe 11', age: 30, country: 'Senegal'},
   {id: 12, name: 'Smith John 12', age: 54, country: 'Morocco'},
 ]);
-
-
+const visibleItems = ref(6);
+const totalPages = computed(()=>{
+  return list.value.length / visibleItems.value
+})
 
 </script>
 <template>
   <div class="viewport-center">
-    <user-component :list="list" :visible-items="4">
+    <user-component :list="list" :visible-items="visibleItems" :total-number-of-pages="totalPages">
       <template #item="user">
         <img class="avatar" :src="'/placeholder-avatar.jpg'" alt=""/>
         <div>

@@ -4,8 +4,8 @@ const itemRefs = ref([]);
 const itemHeight = ref(0);
 
 const props = defineProps({
-  total: {default: 3, type: Number},
-  current: { default: 1, type: Number},
+  totalNumberOfPages: {default: 3, type: Number},
+  currentPage: { default: 1, type: Number},
   list: { type: Array, default: ()=>[]},
   visibleItems: {default: 4, type: Number}
 });
@@ -38,7 +38,7 @@ const computedHeight = computed(()=>{
   <div>
     <ul class="pagination">
       <li
-          v-for="n in total"
+          v-for="n in totalNumberOfPages"
           :key="n"
       >
         <button>{{ n }}</button>
