@@ -2,9 +2,6 @@
 import {onMounted, ref} from "vue";
 import UserComponent from "@/components/UserComponent.vue";
 
-const itemRefs = ref([]);
-const heightStyle = ref(0);
-
 const list = ref([
   {id: 1, name: 'John Doe 1', age: 50, country: 'Spain'},
   {id: 2, name: 'Jane Doe 2', age: 30, country: 'Senegal'},
@@ -25,7 +22,7 @@ const list = ref([
 </script>
 <template>
   <div class="viewport-center">
-    <user-component :list="list">
+    <user-component :list="list" :visible-items="4">
       <template #item="user">
         <img class="avatar" :src="'/placeholder-avatar.jpg'" alt=""/>
         <div>

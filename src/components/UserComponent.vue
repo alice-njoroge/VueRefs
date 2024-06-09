@@ -1,12 +1,28 @@
 <script setup>
+import {computed, onMounted, ref} from "vue";
+const itemRefs = ref([]);
+const itemHeight = ref(0);
+
 const props = defineProps({
   total: {default: 3, type: Number},
   current: { default: 1, type: Number},
-  list: { type: Array, default: ()=>[]}
+  list: { type: Array, default: ()=>[]},
+  visibleItems: {default: 4, type: Number}
+});
+onMounted(()=>{
+  if (itemRefs.value){
+    itemHeight.value = itemRefs.value[0].clientHeight
+  }
+});
+const computedHeight = computed(()=>{
+  return itemHeight.value * props.visibleItems
 })
 </script>
 <template>
-  <div class="root-card m-5 w-6/12 mx-auto border border-black h-80 overflow-hidden" >
+  <div
+      class="root-card m-5 w-6/12 mx-auto border border-black overflow-hidden"
+      :style="`height: ${computedHeight}px`"
+  >
     <ul class="user-wrapper">
       <li
           ref="itemRefs"
