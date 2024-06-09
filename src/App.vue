@@ -4,6 +4,7 @@ import UserComponent from "@/components/UserComponent.vue";
 const index = ref(0);
 
 const list = ref([
+  {id: 0, name: 'Smith John 0', age: 54, country: 'Morocco'},
   {id: 1, name: 'John Doe 1', age: 50, country: 'Spain'},
   {id: 2, name: 'Jane Doe 2', age: 30, country: 'Senegal'},
   {id: 3, name: 'Smith John 3', age: 54, country: 'Morocco'},
@@ -15,7 +16,6 @@ const list = ref([
   {id: 9, name: 'Smith John 9', age: 54, country: 'Morocco'},
   {id: 10, name: 'John Doe 10', age: 50, country: 'Spain'},
   {id: 11, name: 'Jane Doe 11', age: 30, country: 'Senegal'},
-  {id: 12, name: 'Smith John 12', age: 54, country: 'Morocco'},
 ]);
 
 </script>
