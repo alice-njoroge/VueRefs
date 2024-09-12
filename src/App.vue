@@ -1,7 +1,11 @@
 <script setup>
-import {computed, onMounted, ref} from "vue";
+import { ref} from "vue";
 import UserComponent from "@/components/UserComponent.vue";
+import SecondsTick from "@/components/secondsTick.vue";
+import SearchComponent from "@/components/searchComponent.vue";
 const index = ref(0);
+const visibleItems = ref(4);
+
 
 const list = ref([
   {id: 0, name: 'Smith John 0', age: 54, country: 'Morocco'},
@@ -21,7 +25,7 @@ const list = ref([
 </script>
 <template>
   <div class="viewport-center">
-    <user-component :list="list" :index="index">
+    <UserComponent :list="list" :index="index || null" :visible-items="visibleItems">
       <template #item="user">
         <img class="avatar" :src="'/placeholder-avatar.jpg'" alt=""/>
         <div>
@@ -29,29 +33,33 @@ const list = ref([
           <button>Vote {{ user.votes }}</button>
         </div>
       </template>
-    </user-component>
+    </UserComponent>
     <div class="mb-4 flex flex-wrap items-center justify-center">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
         Index:
-        <input v-model.number="index" class="shadow appearance-none border rounded w-6/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="0">
+        <input v-model.number="index" type="number" class="shadow appearance-none border rounded w-6/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" placeholder="0">
       </label>
     </div>
   </div>
+  <section class="time-section">
+    <SecondsTick/>
+  </section>
 </template>
 
 <style>
-.root-card {
-  @apply flex flex-wrap justify-center items-center
+.viewport-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid ;
 }
-
-.user-wrapper {
-  @apply gap-10 justify-center;
+.time-section{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 10px;
 }
-
-.user-card {
-  @apply p-3 shadow-lg rounded w-80 relative flex items-center;
-}
-
 .avatar {
   @apply font-bold object-cover w-24 h-24 rounded-full mr-5 dark:bg-slate-700 bg-slate-200 inline-flex justify-center items-center text-3xl;
 }
